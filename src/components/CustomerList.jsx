@@ -29,6 +29,17 @@ class CustomerList extends Component {
             this.setState({ error: 'Error fetching customers. Please try again later.' });
         })
     }
+
+    fetchCustomers = () => {
+        axios.get('http://127.0.0.1:5000/customers')
+            .then(response => {
+                this.setState({ customers: response.data });
+            })
+            .catch(error => {
+                console.error('Error fetching data:', error);
+                this.setState({ error: 'Error fetching customers. Please try again later.' })
+            })
+    }
     
     selectCustomer = (id) => {
         this.setState({ selectedCustomerId: id });
@@ -54,12 +65,12 @@ class CustomerList extends Component {
                 {error && <Alert variant="danger">{error}</Alert>}
                 <h3 className="mt-3 mb-3 text-center">Customers</h3>
                 <ListGroup>
-                    {customers.map(customer => {
+                    {customers.map(customer => ( 
                         <ListGroup.Item key={customer.id} className='d-flex justify-content-between align-items-center shadow-sm p-3 mb-3 bg-white rounded'>
                             <Link to={`/edit-customer/${customer.id}`} className="text-primary">{customer.name}</Link>
                             <Button variant="danger" size="sm" onClick={() => this.deleteCustomer(customer.id)}>Delete</Button>
                         </ListGroup.Item>
-                    })}
+                    ))}
                 </ListGroup>
             </Container>
         );    

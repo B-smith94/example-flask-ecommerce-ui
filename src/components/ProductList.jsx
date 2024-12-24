@@ -6,7 +6,7 @@ import {array, func } from 'prop-types'
 
 const ProductList = () => {
     const [products, setProducts] = useState([]);
-    const navigate = useNavigate;
+    const navigate = useNavigate();
     
     const fetchProducts = async () => {
             try {
@@ -39,6 +39,7 @@ const ProductList = () => {
                     <ListGroup>
                         {products.map(product => (
                             <ListGroup.Item key={product.id} className='d-flex justify-content-between algin-itmes-center shadow-sm p-3 mb-3 bg-white rounded'>
+                                {product.name}
                                 <div>
                                     <Button variant='primary' onClick={() => navigate(`/edit-product/${product.id}`)} className='me-2'>Edit</Button>
                                     <Button variant='danger' onClick={() => deleteProduct(product.id)} className='me-2'>Delete</Button>
